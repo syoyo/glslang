@@ -127,6 +127,7 @@ struct TSampler {
         case EbtFloat:               break;
         case EbtInt:  s.append("i"); break;
         case EbtUint: s.append("u"); break;
+        case EbtDouble: s.append("d"); break;
         default:  break;  // some compilers want this
         }
         if (image)
@@ -224,14 +225,17 @@ enum TLayoutFormat {
     ElfNone,
 
     // Float image
+    ElfRgba64f,
     ElfRgba32f,
     ElfRgba16f,
+    ElfR64f,
     ElfR32f,
     ElfRgba8,
     ElfRgba8Snorm,
 
     ElfEsFloatGuard,    // to help with comparisons
 
+    ElfRg64f,
     ElfRg32f,
     ElfRg16f,
     ElfR11fG11fB10f,
@@ -615,11 +619,14 @@ public:
     static const char* getLayoutFormatString(TLayoutFormat f)
     {
         switch (f) {
+        case ElfRgba64f:      return "rgba64f";
         case ElfRgba32f:      return "rgba32f";
         case ElfRgba16f:      return "rgba16f";
+        case ElfRg64f:        return "rg64f";
         case ElfRg32f:        return "rg32f";
         case ElfRg16f:        return "rg16f";
         case ElfR11fG11fB10f: return "r11f_g11f_b10f";
+        case ElfR64f:         return "r64f";
         case ElfR32f:         return "r32f";
         case ElfR16f:         return "r16f";
         case ElfRgba16:       return "rgba16";

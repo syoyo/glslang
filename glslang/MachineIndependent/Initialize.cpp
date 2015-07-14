@@ -71,6 +71,7 @@ TBuiltIns::TBuiltIns()
     prefixes[EbtFloat] =  "";
     prefixes[EbtInt]   = "i";
     prefixes[EbtUint]  = "u";
+    prefixes[EbtDouble]  = "d";
     postfixes[2] = "2";
     postfixes[3] = "3";
     postfixes[4] = "4";
@@ -103,6 +104,58 @@ void TBuiltIns::initialize(int version, EProfile profile)
     // Prototypes for built-in functions seen by both vertex and fragment shaders.
     //
     //============================================================================
+
+    // Double precision
+    commonBuiltins.append(
+        "double sin(double radian);"
+        "dvec2  sin(dvec2  radian);"
+        "dvec3  sin(dvec3  radian);"
+        "dvec4  sin(dvec4  radian);"
+
+        "double cos(double radian);"
+        "dvec2  cos(dvec2  radian);"
+        "dvec3  cos(dvec3  radian);"
+        "dvec4  cos(dvec4  radian);"
+
+        "double tan(double radian);"
+        "dvec2  tan(dvec2  radian);"
+        "dvec3  tan(dvec3  radian);"
+        "dvec4  tan(dvec4  radian);"
+
+        "double exp(double x);"
+        "dvec2  exp(dvec2  x);"
+        "dvec3  exp(dvec3  x);"
+        "dvec4  exp(dvec4  x);"
+
+        "double exp2(double x);"
+        "dvec2  exp2(dvec2  x);"
+        "dvec3  exp2(dvec3  x);"
+        "dvec4  exp2(dvec4  x);"
+
+        "double log(double x);"
+        "dvec2  log(dvec2  x);"
+        "dvec3  log(dvec3  x);"
+        "dvec4  log(dvec4  x);"
+
+        "double log2(double x);"
+        "dvec2  log2(dvec2  x);"
+        "dvec3  log2(dvec3  x);"
+        "dvec4  log2(dvec4  x);"
+
+        "double sqrt(double x);"
+        "dvec2  sqrt(dvec2  x);"
+        "dvec3  sqrt(dvec3  x);"
+        "dvec4  sqrt(dvec4  x);"
+                 
+        "double inversesqrt(double x);"
+        "dvec2  inversesqrt(dvec2  x);"
+        "dvec3  inversesqrt(dvec3  x);"
+        "dvec4  inversesqrt(dvec4  x);"
+
+      //"void imageStore(writeonly volatile coherent image2D, ivec2 P, dvec4 data);"
+      // More is TODO
+        "\n"
+    );
 
     //
     // Angle and Trigonometric Functions.
@@ -1820,7 +1873,7 @@ void TBuiltIns::add2ndGenerationSamplingImaging(int version, EProfile profile)
     // to enumerate all the uses for that type.
     //
 
-    TBasicType bTypes[3] = { EbtFloat, EbtInt, EbtUint };
+    TBasicType bTypes[4] = { EbtFloat, EbtInt, EbtUint, EbtDouble };
 
     // enumerate all the types
     for (int image = 0; image <= 1; ++image) { // loop over "bool" image vs sampler
@@ -1857,7 +1910,7 @@ void TBuiltIns::add2ndGenerationSamplingImaging(int version, EProfile profile)
                         if (ms && arrayed && profile == EEsProfile)
                             continue;
 
-                        for (int bType = 0; bType < 3; ++bType) { // float, int, uint results
+                        for (int bType = 0; bType < 4; ++bType) { // float, int, uint, double results
 
                             if (shadow && bType > 0)
                                 continue;

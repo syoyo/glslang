@@ -49,7 +49,7 @@ bool is_positive_infinity(double x) {
 #ifdef _MSC_VER
   return _fpclass(x) == _FPCLASS_PINF;
 #else
-  return isinf(x) && (x >= 0);
+  return std::isinf(x) && (x >= 0);
 #endif
 }
 
