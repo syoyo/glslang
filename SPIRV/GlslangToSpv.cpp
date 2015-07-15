@@ -1598,6 +1598,21 @@ spv::Id TGlslangToSpvTraverser::handleBuiltInFunctionCall(const glslang::TInterm
         return builder.createTextureCall(precision, convertGlslangToSpvType(node->getType()), proj, params);
     }
 
+    if (node->getName().substr(0, 5) == "image") {
+        bool load = node->getName().find("Load", 0) != std::string::npos;
+        bool store = node->getName().find("Store", 0) != std::string::npos;
+
+        if (load) {
+            return builder.createBuiltinCall(precision, convertGlslangToSpvType(node->getType()), stdBuiltins, GLSL_STD_450::ImageLoad, arguments);
+
+        } else if (store) {
+            return builder.createBuiltinCall(precision, convertGlslangToSpvType(node->getType()), stdBuiltins, GLSL_STD_450::ImageStore, arguments);
+        } else {
+            spv::MissingFunctionality("image function call");
+            return 0;
+        }
+    }
+
     spv::MissingFunctionality("built-in function call");
 
     return 0;

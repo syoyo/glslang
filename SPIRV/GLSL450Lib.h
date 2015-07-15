@@ -118,6 +118,10 @@ enum Entrypoints {
     InterpolateAtSample = 77,
     InterpolateAtOffset = 78,
 
+    // HACK
+    ImageLoad = 79,
+    ImageStore= 80,
+
     Count
 };
 
@@ -205,6 +209,10 @@ inline void GetDebugNames(const char** names)
     names[InterpolateAtCentroid]   = "interpolateAtCentroid";
     names[InterpolateAtSample]     = "interpolateAtSample";
     names[InterpolateAtOffset]     = "interpolateAtOffset";
+
+    // HACK
+    names[ImageLoad]               = "imageLoad";
+    names[ImageStore]              = "imageStore";
 }
 
 }; // end namespace GLSL_STD_450

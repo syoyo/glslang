@@ -152,8 +152,7 @@ void TBuiltIns::initialize(int version, EProfile profile)
         "dvec3  inversesqrt(dvec3  x);"
         "dvec4  inversesqrt(dvec4  x);"
 
-      //"void imageStore(writeonly volatile coherent image2D, ivec2 P, dvec4 data);"
-      // More is TODO
+        // More is TODO
         "\n"
     );
 
@@ -1923,13 +1922,19 @@ void TBuiltIns::add2ndGenerationSamplingImaging(int version, EProfile profile)
                             //
 
                             TSampler sampler;
-                            sampler.set(bTypes[bType], (TSamplerDim)dim, arrayed ? true : false,
-                                                                         shadow  ? true : false,
-                                                                         ms      ? true : false);
+                            TBasicType samplerTy = (bTypes[bType] == EbtDouble) ?  EbtFloat : bTypes[bType]; //Use float-typed sampler for EbtDouble
+                            sampler.set(samplerTy, (TSamplerDim)dim, arrayed ? true : false,
+                                                                     shadow  ? true : false,
+                                                                     ms      ? true : false);
                             if (image)
                                 sampler.image = true;
 
                             TString typeName = sampler.getString();
+
+                            // HACK
+                            sampler.set(bTypes[bType], (TSamplerDim)dim, arrayed ? true : false,
+                                                                     shadow  ? true : false,
+                                                                     ms      ? true : false);
 
                             addQueryFunctions(sampler, typeName, version, profile);
 
